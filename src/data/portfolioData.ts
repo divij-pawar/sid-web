@@ -5,9 +5,9 @@ export const personalInfo = {
   title: "Mechanical Engineer & Researcher",
   tagline: "Designing innovative solutions through computational modeling and advanced manufacturing",
   photo: personalPhoto,
-  email: "alex.chen@email.com",
-  linkedin: "https://linkedin.com/in/alexchen",
-  github: "https://github.com/alexchen",
+  email: "siddhimorework@gmail.com",
+  linkedin: "https://www.linkedin.com/in/more-siddhi/",
+  github: "https://github.com/more-sidd",
   resumeUrl: "/resume.pdf",
   about: "I'm a mechanical engineer passionate about pushing the boundaries of design and simulation. With expertise in CAD modeling, finite element analysis, and computational fluid dynamics, I bridge theoretical concepts with practical engineering solutions. My work spans from optimizing thermal management systems to developing novel manufacturing processes.",
   interests: [
@@ -29,34 +29,34 @@ export const personalInfo = {
 export const education: Education[] = [
   {
     id: "edu1",
-    degree: "Master of Science in Mechanical Engineering",
-    institution: "Massachusetts Institute of Technology",
-    location: "Cambridge, MA",
-    graduationDate: "May 2022",
-    gpa: "3.9/4.0",
-    honors: ["Outstanding Graduate Research Award", "Dean's List"]
+    degree: "Master of Science in Robotics, Mechanical concentration",
+    institution: "Northeastern University",
+    location: "Boston, MA",
+    graduationDate: "May 2027",
+    gpa: "3.5/4.0",
+    honors: ["Global Learner's Award"]
   },
   {
     id: "edu2",
     degree: "Bachelor of Science in Mechanical Engineering",
-    institution: "University of California, Berkeley",
-    location: "Berkeley, CA",
-    graduationDate: "May 2020",
-    gpa: "3.8/4.0",
-    honors: ["Magna Cum Laude", "Tau Beta Pi Engineering Honor Society"]
+    institution: "University of Mumbai, Fr. Conceicao Rodrigues College of Engineering, India",
+    location: "Mumbai, India",
+    graduationDate: "Jun 2024",
+    gpa: "3.2/4.0",
+  
   }
 ];
 
 export const experience: Experience[] = [
   {
     id: "exp1",
-    title: "Senior Mechanical Engineer",
-    company: "Innovative Dynamics Corp",
-    location: "San Francisco, CA",
-    startDate: "June 2022",
-    endDate: "Present",
-    responsibilities: [
-      "Lead thermal management system design for next-generation electric vehicles",
+    title: "Robotics intern",
+    company: "1stop & IIT Bombay",
+    location: "Mumbai, India",
+    startDate: "Feb 2022",
+    endDate: "Apr 2022",
+    overview: [
+      "Developed a fundamental understanding in robotics, kinematics, inverse kinematics, and industrial robots to strengthen problem-solving skills in robot motion control",
       "Perform advanced CFD simulations to optimize cooling performance",
       "Collaborate with cross-functional teams to integrate thermal solutions",
       "Mentor junior engineers in simulation methodologies and CAD best practices"
