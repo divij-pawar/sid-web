@@ -55,14 +55,14 @@ export const experience: Experience[] = [
     location: "Mumbai, India",
     startDate: "Feb 2022",
     endDate: "Apr 2022",
-    responsibilities: [
+    responsibilities: [ // <-- Changed to square brackets []
       "Developed a fundamental understanding in robotics, kinematics, inverse kinematics, and industrial robots to strengthen problem-solving skills in robot motion control",
-      "Analyzed end-effector configurations using Robo-Analyzer on a SCARA robot by modifying joint variablesto enhance precision in positioning",
+      "Analyzed end-effector configurations using Robo-Analyzer on a SCARA robot by modifying joint variables to enhance precision in positioning",
       "Simulated the SCARA robot’s payload capacity using ANSYS Workbench, performing structural analysis to determine maximum load limits, ensuring mechanical stability",
       "Investigated the relationship between joint movements and end-effector placement through kinematic modelling"
-    
-  };
-]
+    ]
+  } 
+];
 
 
 export const skills: Skill[] = [
