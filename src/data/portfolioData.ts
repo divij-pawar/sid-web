@@ -57,60 +57,32 @@ export const experience: Experience[] = [
     endDate: "Apr 2022",
     overview: [
       "Developed a fundamental understanding in robotics, kinematics, inverse kinematics, and industrial robots to strengthen problem-solving skills in robot motion control",
-      "Perform advanced CFD simulations to optimize cooling performance",
-      "Collaborate with cross-functional teams to integrate thermal solutions",
-      "Mentor junior engineers in simulation methodologies and CAD best practices"
+      "Analyzed end-effector configurations using Robo-Analyzer on a SCARA robot by modifying joint variablesto enhance precision in positioning",
+      "Simulated the SCARA robot’s payload capacity using ANSYS Workbench, performing structural analysis to determine maximum load limits, ensuring mechanical stability",
+      "Investigated the relationship between joint movements and end-effector placement through kinematic modelling"
     ]
   },
-  {
-    id: "exp2",
-    title: "Research Assistant",
-    company: "MIT Mechanical Engineering Department",
-    location: "Cambridge, MA",
-    startDate: "September 2020",
-    endDate: "May 2022",
-    responsibilities: [
-      "Conducted research on novel heat transfer mechanisms in microfluidic devices",
-      "Developed custom MATLAB scripts for data analysis and visualization",
-      "Published findings in peer-reviewed journals",
-      "Presented research at international conferences"
-    ]
-  },
-  {
-    id: "exp3",
-    title: "Engineering Intern",
-    company: "SpaceTech Solutions",
-    location: "Los Angeles, CA",
-    startDate: "June 2019",
-    endDate: "August 2019",
-    responsibilities: [
-      "Assisted in structural analysis of satellite components using ANSYS",
-      "Created detailed CAD models for manufacturing documentation",
-      "Participated in design reviews and contributed optimization suggestions"
-    ]
-  }
-];
 
 export const skills: Skill[] = [
   {
     category: "CAD & Design",
-    items: ["SolidWorks", "CATIA", "AutoCAD", "Fusion 360", "Inventor"]
+    items: ["SolidWorks", "CATIA", "AutoCAD", "Fusion 360", "NX11", "MATLAB", "Robo-analyzer","XFLR"]
   },
   {
     category: "Simulation & Analysis",
-    items: ["ANSYS", "COMSOL", "Abaqus", "OpenFOAM", "Simulink"]
+    items: ["ANSYS", "Gazebo", "Simulink", "Rviz"]
   },
   {
     category: "Programming",
-    items: ["Python", "MATLAB", "C++", "JavaScript", "R"]
+    items: ["Python","C", "MATLAB","ROS/ROS2"]
   },
   {
     category: "Manufacturing",
-    items: ["3D Printing", "CNC Machining", "Sheet Metal Fabrication", "Injection Molding"]
+    items: ["3D Printing", "CNC Machining", "Foam Fabrication", "Injection Molding"]
   },
   {
     category: "Tools & Software",
-    items: ["Git", "LaTeX", "Paraview", "Tecplot", "LabVIEW"]
+    items: ["Git", "LaTeX", "SLAM Toolbox"]
   }
 ];
 
