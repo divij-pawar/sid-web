@@ -1,10 +1,10 @@
 import { Project, Publication, Experience, Education, Skill } from '../types';
 
 export const personalInfo = {
-  name: "Alex Chen",
+  name: "Siddhi More",
   title: "Mechanical Engineer & Researcher",
   tagline: "Designing innovative solutions through computational modeling and advanced manufacturing",
-  photo: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400",
+  photo: "src/data/sidd.jpg",
   email: "alex.chen@email.com",
   linkedin: "https://linkedin.com/in/alexchen",
   github: "https://github.com/alexchen",

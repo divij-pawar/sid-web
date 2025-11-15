@@ -55,7 +55,7 @@ const Header = ({ activeSection }: HeaderProps) => {
               onClick={() => scrollToSection('home')}
               className="text-2xl font-bold text-gray-900 hover:text-blue-600 transition-colors"
             >
-              AC
+            SM
             </button>
 
             <nav className="hidden md:flex space-x-8">
