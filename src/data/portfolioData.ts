@@ -55,7 +55,7 @@ export const experience: Experience[] = [
     location: "Mumbai, India",
     startDate: "Feb 2022",
     endDate: "Apr 2022",
-    overview: [
+    responsibilities: [
       "Developed a fundamental understanding in robotics, kinematics, inverse kinematics, and industrial robots to strengthen problem-solving skills in robot motion control",
       "Perform advanced CFD simulations to optimize cooling performance",
       "Collaborate with cross-functional teams to integrate thermal solutions",
