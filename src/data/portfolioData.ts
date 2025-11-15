@@ -47,7 +47,7 @@ export const education: Education[] = [
   }
 ];
 
-export const experience: Experience[] = [
+export const experience: Experience[] = 
   {
     id: "exp1",
     title: "Robotics intern",
@@ -61,7 +61,7 @@ export const experience: Experience[] = [
       "Simulated the SCARA robot’s payload capacity using ANSYS Workbench, performing structural analysis to determine maximum load limits, ensuring mechanical stability",
       "Investigated the relationship between joint movements and end-effector placement through kinematic modelling"
     ]
-  },
+  }
 
 export const skills: Skill[] = [
   {
