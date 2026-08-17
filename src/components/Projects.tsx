@@ -1,78 +1,142 @@
 import { useState } from 'react';
-import { Filter } from 'lucide-react';
 import { projects } from '../data/portfolioData';
-import ProjectCard from './ProjectCard';
-import ProjectModal from './ProjectModal';
 import { Project } from '../types';
+import ProjectModal from './ProjectModal';
+import { Reveal } from './Reveal';
 
-const Projects = () => {
-  const [selectedCategory, setSelectedCategory] = useState('All');
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+/* Cards cycle the four palette hues. These read as CSS variables so the set
+   flips automatically in dark mode: the -ink tokens collapse back to the raw
+   pastels there, where they clear 6:1 unaided. */
+const ACCENT_COLORS = ['var(--rose-ink)','var(--blueberry-ink)','var(--lilac-ink)','var(--lemon-ink)'];
+const ACCENT_BGS    = ['var(--rose-soft)','var(--blueberry-soft)','var(--lilac-soft)','var(--lemon-soft)'];
 
-  const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category)))];
-
-  const filteredProjects =
-    selectedCategory === 'All'
-      ? projects
-      : projects.filter((p) => p.category === selectedCategory);
+export default function Projects() {
+  const [active, setActive] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Featured Projects
-          </h2>
-          <div className="w-24 h-1 bg-blue-600 mx-auto" />
-        </div>
+    <section id="projects" className="section-pad section-alt" style={{ borderBottom: '1px solid var(--border)' }}>
+      <div className="max-w-6xl mx-auto px-6">
+        <Reveal>
+          <p className="label">02 — Projects</p>
+          <h2 className="heading">Selected Work</h2>
+        </Reveal>
 
-        <div className="flex items-center justify-center mb-12">
-          <div className="flex items-center gap-3 flex-wrap justify-center">
-            <div className="flex items-center gap-2 text-gray-700 font-medium">
-              <Filter size={20} />
-              <span>Filter:</span>
-            </div>
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setSelectedCategory(category)}
-                className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                  selectedCategory === category
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </div>
-        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '1.4rem' }}>
+          {projects.map((p, i) => {
+            const ac = ACCENT_COLORS[i % ACCENT_COLORS.length];
+            const bg = ACCENT_BGS[i % ACCENT_BGS.length];
+            const hasImages = p.images && p.images.length > 0;
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProjects.map((project) => (
-            <ProjectCard
-              key={project.id}
-              project={project}
-              onClick={() => setSelectedProject(project)}
-            />
-          ))}
-        </div>
+            return (
+              <Reveal key={p.id} delay={i * 55}>
+                <div
+                  className="card"
+                  style={{ overflow: 'hidden', cursor: 'pointer', display: 'flex', flexDirection: 'column', height: '100%' }}
+                  onClick={() => setActive(p)}
+                >
+                  {/* Top accent bar */}
+                  <div style={{ height: 3, background: ac }} />
 
-        {filteredProjects.length === 0 && (
-          <div className="text-center py-20 text-gray-500">
-            No projects found in this category.
-          </div>
-        )}
+                  {/* ── Image section ── */}
+                  {hasImages ? (
+                    // Multiple images → horizontal strip
+                    <div
+                      style={{
+                        display: 'flex',
+                        gap: 2,
+                        overflow: 'hidden',
+                        maxHeight: 160,
+                        background: 'var(--bg)',
+                      }}
+                      onClick={e => e.stopPropagation()} // allow scroll without opening modal
+                    >
+                      {p.images!.slice(0, 3).map((src, idx) => (
+                        <div
+                          key={idx}
+                          style={{
+                            flex: idx === 0 ? '2 1 0' : '1 1 0',
+                            overflow: 'hidden',
+                            minWidth: 0,
+                          }}
+                          onClick={() => setActive(p)} // clicking image opens modal
+                        >
+                          <img
+                            src={src}
+                            alt={`${p.title} photo ${idx + 1}`}
+                            style={{
+                              width: '100%',
+                              height: '100%',
+                              objectFit: 'cover',
+                              display: 'block',
+                              transition: 'transform 0.35s ease',
+                            }}
+                          />
+                        </div>
+                      ))}
+                      {/* Overlay count badge if more than 3 */}
+                      {p.images!.length > 3 && (
+                        <div style={{
+                          position: 'absolute',
+                          bottom: 6, right: 6,
+                          background: 'rgba(36,30,40,0.75)',
+                          color: '#fff',
+                          fontSize: '0.6rem',
+                          fontFamily: "'JetBrains Mono', monospace",
+                          padding: '0.15rem 0.4rem',
+                          borderRadius: 2,
+                          letterSpacing: '0.06em',
+                          pointerEvents: 'none',
+                        }}>
+                          +{p.images!.length - 3} more
+                        </div>
+                      )}
+                    </div>
+                  ) : p.thumbnail ? (
+                    // Fallback to single thumbnail
+                    <div style={{ overflow: 'hidden', maxHeight: 160 }}>
+                      <img src={p.thumbnail} alt={p.title} style={{ width: '100%', objectFit: 'cover', display: 'block' }} />
+                    </div>
+                  ) : null}
+
+                  <div style={{ padding: '1.2rem 1.3rem', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                    {/* Category tag */}
+                    <div style={{ marginBottom: '0.5rem' }}>
+                      {/* ac is a var() now, so the old `ac + '55'` alpha trick
+                          would emit invalid CSS — color-mix does it properly. */}
+                      <span className="tag" style={{ background: bg, borderColor: `color-mix(in srgb, ${ac} 35%, transparent)`, color: ac, fontWeight: 500 }}>{p.category}</span>
+                    </div>
+
+                    <h3 className="font-display" style={{ fontSize: '1.15rem', lineHeight: 1.15, marginBottom: '0.55rem' }}>{p.title}</h3>
+                    <p style={{ fontSize: '0.84rem', color: 'var(--muted)', lineHeight: 1.65, flex: 1, marginBottom: '1rem' }}>{p.description}</p>
+
+                    {/* Key result bullets */}
+                    <ul style={{ listStyle: 'none', marginBottom: '1rem' }}>
+                      {p.results.slice(0, 2).map((r, ri) => (
+                        <li key={ri} style={{ display: 'flex', alignItems: 'flex-start', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--muted)', lineHeight: 1.5, marginBottom: '0.25rem' }}>
+                          <span style={{ width: 5, height: 5, borderRadius: '50%', background: ac, flexShrink: 0, marginTop: '0.38rem' }} />
+                          {r}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Footer */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--border)', paddingTop: '0.75rem' }}>
+                      <span className="font-mono" style={{ fontSize: '0.65rem', letterSpacing: '0.08em', color: 'var(--muted)' }}>
+                        {p.github ? '↗ GitHub available' : p.status === 'complete' ? '✓ Completed' : 'In progress'}
+                      </span>
+                      <span className="font-mono" style={{ fontSize: '0.65rem', letterSpacing: '0.1em', color: ac, textTransform: 'uppercase' }}>
+                        Details →
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
       </div>
 
-      {selectedProject && (
-        <ProjectModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
-      )}
+      {active && <ProjectModal project={active} onClose={() => setActive(null)} />}
     </section>
   );
-};
-
-export default Projects;
+}

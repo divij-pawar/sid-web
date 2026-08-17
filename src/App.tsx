@@ -1,65 +1,75 @@
-import { useState, useEffect } from 'react';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import About from './components/About';
-import Experience from './components/Experience';
-import Projects from './components/Projects';
+import Nav          from './components/Nav';
+import Hero         from './components/Hero';
+import About        from './components/About';
+import Projects     from './components/Projects';
+import Skills       from './components/Skills';
+import Gallery      from './components/Gallery';
+import Blog         from './components/Blog';
+import Experience   from './components/Experience';
+import Education    from './components/Education';
 import Publications from './components/Publications';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import Contact      from './components/Contact';
+import { lazy, Suspense } from 'react';
+import { useHashRoute } from './lib/useHashRoute';
+import './index.css';
+import './blog.css';
 
-function App() {
-  const [activeSection, setActiveSection] = useState('home');
+// The markdown renderer and Supabase client are only needed once someone opens
+// a post, so they load on demand instead of weighing down the landing page.
+const BlogPost      = lazy(() => import('./components/BlogPost'));
+const CommentsAdmin = lazy(() => import('./components/CommentsAdmin'));
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sections = ['home', 'about', 'experience', 'projects', 'publications', 'contact'];
-      const scrollPosition = window.scrollY + 150;
-
-      for (const sectionId of sections) {
-        const element = document.getElementById(sectionId);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetBottom = offsetTop + element.offsetHeight;
-
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveSection(sectionId);
-            break;
-          }
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      const offset = 80;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    }
-  };
-
+function RouteFallback() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header activeSection={activeSection} />
-      <Hero onScrollToNext={() => scrollToSection('about')} />
-      <About />
-      <Experience />
-      <Projects />
-      <Publications />
-      <Contact />
-      <Footer />
+    <div className="post-page">
+      <div className="post-container">
+        <p className="comments-status font-mono">Loading…</p>
+      </div>
     </div>
   );
 }
 
-export default App;
+export default function App() {
+  const route = useHashRoute();
+
+  return (
+    <>
+      <Nav />
+      <main>
+        {route.name === 'post' && (
+          <Suspense fallback={<RouteFallback />}><BlogPost slug={route.slug} /></Suspense>
+        )}
+        {route.name === 'admin' && (
+          <Suspense fallback={<RouteFallback />}><CommentsAdmin /></Suspense>
+        )}
+        {route.name === 'home'  && (
+          <>
+            <Hero />
+            <About />
+            <Projects />
+            <Skills />
+            <Gallery />
+            <Blog />
+            <Experience />
+            <Education />
+            <Publications />
+            <Contact />
+          </>
+        )}
+      </main>
+      <footer style={{
+        borderTop: '1px solid var(--border)',
+        padding: '1.2rem 1.5rem',
+        display: 'flex', justifyContent: 'space-between',
+        alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem',
+      }}>
+        <span className="font-mono" style={{ fontSize: '0.68rem', color: 'var(--muted)', letterSpacing: '0.06em' }}>
+          © 2026 Siddhi More · Boston, MA
+        </span>
+        <span className="font-mono" style={{ fontSize: '0.68rem', color: 'var(--muted)', letterSpacing: '0.06em' }}>
+          React + Vite + Tailwind
+        </span>
+      </footer>
+    </>
+  );
+}
