@@ -1,16 +1,17 @@
-import { Project, Publication, Experience, Education, Skill } from '../types';
-import siddPhoto from '/sidd.jpg';
-import dopplerThumbnail from '/doppler.png';
+import { Project, Publication, Experience, Education, Skill, GalleryItem } from '../types';
 
 export const personalInfo = {
   name: "Siddhi More",
   title: "Wearable & Assistive Robotics Engineer",
   tagline: "Building hardware that restores human mobility!From planetary gearbox design and embedded firmware to ROS2 navigation and ML-validated musculoskeletal simulation.",
-  photo: "/sidd.jpg",
-  email: "more.sidd@northeastern.edu",
+  photo: "/sidd.jpeg",
+  photo2: "/sidd2.jpg",
+  email: "siddhimorework@gmail.com",
   linkedin: "https://www.linkedin.com/in/more-siddhi/",
   github: "https://github.com/more-sidd",
-  resumeUrl: "/SiddhiResume.pdf",
+  // Point this at whichever file is in public/. A .pdf opens in the browser;
+  // anything else (.docx) downloads instead — see src/lib/resume.ts.
+  resumeUrl: "/SiddhiResume.docx",
 };
 export const education: Education[] = [
   {
@@ -18,7 +19,7 @@ export const education: Education[] = [
     degree: "MS Robotics(Mechanical Concentration)",
     institution: "Northeastern University",
     location: "Boston, MA",
-    graduationDate: "May 2027",
+    graduationDate: "Dec 2026",
     gpa: "3.25 / 4.0",
     honors: ["Global Student Award"],
     courses: [
@@ -75,18 +76,6 @@ export const experience: Experience[] = [
       "Modeled and assembled components following technical specifications; gained industry-standard drafting and documentation practices applicable to real manufacturing workflows.",
     ],
   },
-  {
-    id: "exp3",
-    title: "Junior Design and Materials Member",
-    company: "Team Vaayushastra — SAE Aero Design West",
-    location: "Mumbai, India",
-    startDate: "Aug 2021",
-    endDate: "Nov 2021",
-    responsibilities: [
-      "Served as Materials Incharge for SAE Aero Design West competition — selected and sourced materials for wing construction, operated laser cutters and woodworking equipment for structural components, and performed foam cutting for wing profiles.",
-      "Designed landing gear and wings in SolidWorks and ran FEA simulations to validate structural integrity under competition deadlines; iterated rapidly between CAD, simulation, and physical prototype.",
-    ],
-  },
 ];
 
 export const skills: Skill[] = [
@@ -113,8 +102,46 @@ export const skills: Skill[] = [
 ];
 
 export const projects: Project[] = [
-  {
+ {
     id: "proj1",
+    title: "Pupper v3 - A quadruped robot developed by Stamford University, currently learning to take it's baby steps in Boston",
+    shortTitle: "Pupper v3",
+    category: "Legged Robots/ Quadrupeds",
+    status: "in-progress",
+    description: "Pupper v3 is a cute companion robot designed to spark joy and teach robotics and AI.",
+    fullDescription: "Pupper is an agile quadruped robot developed by Standford University for learning legged robotics (CS 123). It focuses on developing efficient and adaptive locomotion strategies for quadrupedal robots.",
+    objectives: [
+      "Develop a comprehensive understanding of legged robotics principles and applications.",
+      "Implement and test advanced control algorithms for dynamic locomotion.",
+      "Establish an outreach program for promoting legged robotics education and research in Boston Highschools."
+    ],
+    goals: [
+  "Run baseline push tests and characterize disturbance response using the BNO086 IMU.",
+  "Deploy a ROS2 reflex safety layer that reacts to falls in real time.",
+  "Retrain the MuJoCo MJX RL policy in simulation with push and IMU-noise domain randomization.",
+  "Validate the retrained policy sim-to-real on hardware.",
+   ],
+results: [
+  "Confirmed the deployed policy architecture: a 720-dim observation space with 20-step history feeding a 1024→512→512→512→12 MLP with ELU activations, PD gains kp=5.0 / kd=0.25.",
+  "Traced the IMU signal path from the BNO086 to the observation vector, isolating projected gravity vector and angular velocity as the primary disturbance-sensing signals.",
+  "Paired a PS5 DualSense controller over Bluetooth for teleoperation and confirmed a camera pipeline dropout is non-blocking to walking.",
+    ],
+keyTakeaways: [
+  "Push-recovery failure can be framed as an empirical delay-margin problem on a nonlinear legged system.",
+  "A fast-iterating platform like Pupper enables testing disturbance rejection ideas in hours rather than weeks.",
+  ],
+    images: [
+    "/gallery/Pupper1.jpg",
+    "/gallery/Pupper2.jpg",
+    "/gallery/Pupper3.jpg",
+    
+  ],
+    github: "https://bostonrobothackers.com/projects/pupper.html",
+  },
+
+
+  {
+    id: "proj2",
     title: "Powered Ankle Prosthesis — Predictive Bilateral Control",
     category: "Wearable Robotics",
     status: "in-progress",
@@ -124,6 +151,11 @@ export const projects: Project[] = [
       "Design and fabricate a backdrivable, compact 36:1 compound planetary gearbox for ankle actuation.",
       "Build a 200Hz real-time gait phase estimation pipeline fusing IMU and FSR data on ESP32-S2.",
       "Validate system performance against OpenSim Gait2392 musculoskeletal simulation across varied terrain.",
+    ],
+    goals: [
+      "Deliver biomechanically timed assistive torque across varied terrain.",
+      "Demonstrate reliable real-time gait estimation and predictive control on embedded hardware.",
+      "Establish a validated foundation for a robust, deployable powered ankle prosthesis.",
     ],
     results: [
       "Designed 36:1 Bilateral Drive compound planetary gearbox in Fusion 360 (61.9 Nm theoretical, 44.6 Nm realistic at η=72%); 3D printed in PLA, integrated with Moteus C1 brushless controller via CAN-FD at 100Hz command loop.",
@@ -136,15 +168,15 @@ export const projects: Project[] = [
       "PLA gearbox teeth fracture under repeated impact loading at heel strike — PETG or Nylon required for physical deployment.",
     ],
     images: [
-    "/gallery/FSR data.jpg",
-    "/gallery/Pros CAD.jpg",
-    "/gallery/Pros Assembly.jpg",
+    "/gallery/fsr-data.jpg",
+    "/gallery/pros-cad.jpg",
+    "/gallery/pros-assembly.jpg",
   ],
     github: "https://github.com/more-sidd/Predictive-Bilateral-Control-for-a-Powered-Ankle-Prosthesis",
   },
 
   {
-    id: "proj2",
+    id: "proj3",
     title: "Wearable Hearing System — GCC-PHAT Sound Triangulation",
     category: "Assistive Robotics",
     status: "complete",
@@ -154,6 +186,11 @@ export const projects: Project[] = [
       "Classify safety-critical sounds (horns, sirens) against urban ambient noise in real time.",
       "Localize sound source direction to within ±10° using a wearable microphone array.",
       "Classify source motion as Approaching or Receding and estimate Closest Point of Approach.",
+    ],
+    goals: [
+      "Provide hearing-impaired users with reliable awareness of safety-critical sounds.",
+      "Deliver accurate real-time directional haptic feedback with low end-to-end latency.",
+      "Demonstrate robust sound localization and motion classification in realistic urban noise.",
     ],
     results: [
       "Built FFT/STFT pipeline (90ms frames) achieving 95% classification accuracy for horns (505–516 Hz) and sirens (400–1300 Hz) against ambient urban noise.",
@@ -167,13 +204,13 @@ export const projects: Project[] = [
     ],
 
   images: [
-    "/gallery/Car Horn Detection.png",
+    "/gallery/car-horn-detection.png",
   ],
     github: "https://github.com/more-sidd/A-Doppler-Based-Wearable-device-for-Directional-Awareness",
   },
 
   {
-    id: "proj3",
+    id: "proj4",
     title: "Autonomous SLAM Navigation — ROS2 & TurtleBot3",
     category: "Autonomous Navigation",
     status: "complete",
@@ -183,6 +220,11 @@ export const projects: Project[] = [
       "Replace manual teleoperation with automated closed-loop trajectory control for SLAM.",
       "Achieve consistent map density and trajectory accuracy across varied environments.",
       "Validate odometry performance and characterize drift through rosbag analysis.",
+    ],
+    goals: [
+      "Enable reliable, repeatable autonomous SLAM map generation without manual teleoperation.",
+      "Minimize trajectory error and collisions across varied simulated environments.",
+      "Use odometry and rosbag analysis to validate navigation performance and diagnose drift.",
     ],
     results: [
       "Developed turtlebot3_control ROS2 package with distance/heading control modes (10Hz callback), Cartographer SLAM + Nav2 in parallel, LIDAR collision detection, and velocity clamping at 0.22 m/s.",
@@ -196,19 +238,24 @@ export const projects: Project[] = [
     ],
 
     images: [
-    "/gallery/Custom Env Turtlebot.gif",
+    "/gallery/custom-env-turtlebot.png",
   ],
 
     github: "https://github.com/more-sidd/Turtlebot3-Navigation-using-SLAM",
   },
   {
-    id: "proj4",
+    id: "proj5",
     title: "Aquatic Hyacinth Cleaner — Q-Learning Navigation Agent",
     category: "Reinforcement Learning",
     status: "complete",
     description: "Q-learning agent with partial observability solving autonomous aquatic navigation for invasive species removal — 100% completion rate from episode 400 of 5000, clearing all 20 targets in 94 steps.",
     fullDescription: "A physical aquatic robot can only sense what its sensors detect within a certain range — it cannot see the entire pond at once. This project designed a Q-learning agent operating under partial observability constraints to navigate a grid-based pond simulation, avoid obstacles, and efficiently remove invasive water hyacinth.",
     objectives: [
+      "Train an autonomous agent to navigate a partially observable grid environment.",
+      "Solve the blind navigation problem using zone-based state representation.",
+      "Achieve 100% hyacinth removal without global map knowledge.",
+    ],
+    goals: [
       "Train an autonomous agent to navigate a partially observable grid environment.",
       "Solve the blind navigation problem using zone-based state representation.",
       "Achieve 100% hyacinth removal without global map knowledge.",
@@ -225,19 +272,24 @@ export const projects: Project[] = [
     ],
 
     images: [
-    "/gallery/grid_visualization.png",
+    "/gallery/grid-visualization.png",
   ],
 
     github: "https://github.com/more-sidd/hyacinth-cleaner-bot",
   },
   {
-    id: "proj5",
+    id: "proj6",
     title: "Semi-Autonomous Aquatic Robot — Smart India Hackathon",
     category: "Autonomous Systems",
     status: "complete",
     description: "Multi-microcontroller aquatic robot with CNN-based hyacinth classification (87.5% accuracy), full EasyEDA circuit schematic, and end-to-end hyacinth-to-textile processing pipeline.",
     fullDescription: "Invasive water hyacinth causes severe ecological damage to freshwater bodies across India. This Smart India Hackathon project designed a semi-autonomous robot to remove and process the plant — combining multi-microcontroller embedded electronics, computer vision, SolidWorks FEA, and textile fabrication into a single end-to-end system.",
     objectives: [
+      "Design a multi-microcontroller architecture for coordinated aquatic robot control.",
+      "Build and train a CNN classifier to identify hyacinth vs. clear water in real time.",
+      "Validate crusher mechanism structural integrity and design hyacinth processing pipeline.",
+    ],
+    goals: [
       "Design a multi-microcontroller architecture for coordinated aquatic robot control.",
       "Build and train a CNN classifier to identify hyacinth vs. clear water in real time.",
       "Validate crusher mechanism structural integrity and design hyacinth processing pipeline.",
@@ -251,17 +303,25 @@ export const projects: Project[] = [
       "I2C master-slave architecture with ESP32 as master enables clean separation of subsystem control across multiple Arduino Nano nodes.",
       "Buck converters (24V→12V/5V) are essential for powering mixed-voltage embedded systems from a single battery source.",
       "Von Mises stress FEA on the crusher drum identified stress concentrations that informed structural reinforcement before fabrication.",
+      ],
+      images: [
+    "/gallery/SIH-2.png",
     ],
   },
 
   {
-    id: "proj6",
+    id: "proj7",
     title: "Injection Molding FEA & DOE Optimization",
     category: "Manufacturing Simulation",
     status: "complete",
     description: "Systematic DOE and ANOVA optimization of automotive airbag housing injection molding in SolidWorks Plastics — reduced sink marks by 20% and warpage by 11%. Published in AIP Conference Proceedings, ICAPSM 2024.",
     fullDescription: "Automotive airbag housings are safety-critical components that must withstand high pressures during deployment. Defects like sink marks and warpage compromise both structural integrity and dimensional accuracy. This research applied Design of Experiments and ANOVA to identify the critical process parameter interactions driving these defects.",
     objectives: [
+      "Identify critical process parameter interactions affecting sink marks and warpage in thin-shell injection molded components.",
+      "Apply DOE methodology to systematically explore the parameter space with minimum trials.",
+      "Publish validated optimization strategies for high-pressure automotive safety components.",
+    ],
+    goals: [
       "Identify critical process parameter interactions affecting sink marks and warpage in thin-shell injection molded components.",
       "Apply DOE methodology to systematically explore the parameter space with minimum trials.",
       "Publish validated optimization strategies for high-pressure automotive safety components.",
@@ -277,8 +337,49 @@ export const projects: Project[] = [
       "Cooling time accounts for ~70% of total cycle time, making it the highest-leverage target for production efficiency improvements.",
     ],
     images: [
-    "/gallery/sink marks.png",
+    "/gallery/sink-marks.png",
   ],
+  },
+  {
+    id: "proj8",
+    title: "CAD and Engineering Drawing",
+    category: "CAD & Drafting",
+    status: "complete",
+    description: "Coursework drawing sets from Fr. CRCE: AutoCAD orthographic and isometric sheets in first year, then SolidWorks models of standard machine elements in second year.",
+    fullDescription: "Two sets of drawing coursework from Fr. Conceicao Rodrigues College of Engineering. The first year set is AutoCAD: orthographic projection sheets with sectional views, dimensioning and title blocks, plus isometric views built from given orthographic inputs. The second year Mechanical set moves to SolidWorks, modelling standard machine elements from engineering drawings and rendering them as assemblies.",
+    objectives: [
+      "Read an engineering drawing and reconstruct the part it describes, in both directions: orthographic views from an isometric, and an isometric from orthographic views.",
+      "Produce dimensioned sheets with correct sectioning, line types and title blocks to drawing-standard conventions.",
+      "Move from 2D drafting in AutoCAD to parametric solid modelling of standard machine elements in SolidWorks.",
+    ],
+    goals: [
+      "Build the drawing-reading fluency that later design work depends on, so a part can be understood from a sheet rather than from a 3D file.",
+    ],
+    results: [
+      "Eight machine elements modelled in SolidWorks: knuckle joint, universal joint, two drill jigs, clapper block, single tool post, protected type flange coupling and Oldham coupling.",
+      "Six AutoCAD sheets covering orthographic projections with sectional views and isometric reconstructions, each dimensioned and titled.",
+    ],
+    keyTakeaways: [
+      "Sectioning is where most drawing errors show up. Deciding where to cut, and then hatching only what the cut plane actually passes through, is the part that takes practice.",
+      "Modelling a coupling or a jig from its drawing forces you to notice fits and clearances that are easy to skip when designing straight into CAD.",
+    ],
+    images: [
+      "/cad/knuckle-joint.png",
+      "/cad/universal-joint.png",
+      "/cad/drill-jig-1.png",
+      "/cad/drill-jig-2.png",
+      "/cad/clapper-block.png",
+      "/cad/single-tool-post.png",
+      "/cad/flange-coupling.png",
+      "/cad/oldham-coupling.png",
+      "/cad/autocad-1.png",
+      "/cad/autocad-2.png",
+      "/cad/autocad-3.png",
+      "/cad/autocad-4.png",
+      "/cad/autocad-5.png",
+      "/cad/autocad-6.png",
+    ],
+    skills: ["AutoCAD", "SolidWorks", "Orthographic Projection", "Isometric Views", "Sectional Views", "Dimensioning", "Machine Drawing"],
   },
 ];
 
@@ -302,15 +403,51 @@ export const publications: Publication[] = [
   },
 ];
 // ← paste here, at the end of the file
-export const galleryImages = [
-  { src: "/gallery/SIH.jpg", caption: "Smart India Hackathon" },
-  { src: "/gallery/Gwise1.jpeg",        caption: "GWiSE NEU" },
-  { src: "/gallery/Gwise2.JPG",        caption: "GWiSE NEU" },
-  { src: "/gallery/Hiking2.jpeg",        caption: "Fun Activites!" },
-  { src: "/gallery/NEU.JPG",        caption: "Northeastern University" },
-  { src: "/gallery/GLI1.JPG",        caption: "Graduate Leadership Institute @ lead360" },
-  { src: "/gallery/GLI2.jpg",        caption: "Graduate Leadership Institute @ lead360" },
-  { src: "/gallery/GLI3.jpeg",        caption: "Graduate Leadership Institute @ lead360" },
-  { src: "/gallery/kayaking.jpg",        caption: "Fun Activities!"},
-  { src: "/gallery/Pupper.jpg" ,       caption: "Pupperv3 Stanford X BRH"},
+/* ── Gallery ─────────────────────────────────────────────────────────────────
+   Two buckets and nothing else, because three tabs was confusing:
+     robotics -> projects, builds, debugging
+     fun      -> people, outdoors, and events
+   Set `video: true` for .mp4 files. Move an item between buckets by changing
+   its `category`.
+   ─────────────────────────────────────────────────────────────────────────── */
+export const galleryItems: GalleryItem[] = [
+  { src: "/gallery/Pupper1.jpg",              caption: "Pupper v3 quadruped",                          category: "robotics" },
+  { src: "/gallery/Pupper2.jpg",              caption: "Pupper v3 quadruped",                          category: "robotics" },
+  { src: "/gallery/Pupper3.jpg",              caption: "Pupper v3 quadruped",                          category: "robotics" },
+  { src: "/gallery/Pupper4.jpg",              caption: "Pupper v3 quadruped",                          category: "robotics" },
+  { src: "/gallery/pupper.jpg",               caption: "Pupper v3 — Stanford CS 123 x BRH",            category: "robotics" },
+  { src: "/gallery/Pupper-debug.gif",         caption: "Debugging Pupper v3, Lab 4",                   category: "robotics" },
+  { src: "/gallery/pupper-helloworld.mp4",    caption: "Pupper v3 first steps",                        category: "robotics", video: true },
+  { src: "/gallery/moteus-debug.mp4",         caption: "Debugging a Moteus controller",                category: "robotics", video: true },
+  { src: "/gallery/rebotfailing.mp4",         caption: "reBOT arm not cooperating",                    category: "robotics", video: true },
+  { src: "/gallery/pros-cad.jpg",             caption: "Powered ankle prosthesis — CAD",               category: "robotics" },
+  { src: "/gallery/pros-assembly.jpg",        caption: "Powered ankle prosthesis — assembly",          category: "robotics" },
+  { src: "/gallery/fsr-data.jpg",             caption: "FSR heel-strike data",                         category: "robotics" },
+  { src: "/gallery/car-horn-detection.png",   caption: "Horn detection — wearable hearing system",     category: "robotics" },
+  { src: "/gallery/turtlebot3.jpg",           caption: "TurtleBot3",                                   category: "robotics" },
+  { src: "/gallery/custom-env-turtlebot.png", caption: "Custom Gazebo environment for TurtleBot3",     category: "robotics" },
+  { src: "/gallery/grid-visualization.png",   caption: "Q-learning grid for the hyacinth cleaner",     category: "robotics" },
+  { src: "/gallery/sink-marks.png",           caption: "Injection moulding sink-mark analysis",        category: "robotics" },
+  { src: "/gallery/SIH-2.png",                caption: "Smart India Hackathon build",                  category: "robotics" },
+  { src: "/gallery/STM2.jpg",                 caption: "IKS5A1 sensor shield on a NUCLEO-F401RE",      category: "robotics" },
+  { src: "/gallery/jw1.jpg",                  caption: "JW Fishers ROV in the shop",                   category: "robotics" },
+  { src: "/gallery/jw2.jpg",                  caption: "ROV surface control unit, opened up",          category: "robotics" },
+  { src: "/gallery/jw4.jpg",                  caption: "Looking up from the test pool, 1.4 ft down",   category: "robotics" },
+  { src: "/gallery/jw3.mp4",                  caption: "Flying the ROV around the test pool",          category: "robotics", video: true },
+  { src: "/gallery/hiking1.jpg",              caption: "Hiking",                                       category: "fun" },
+  { src: "/gallery/hiking2.jpeg",             caption: "Hiking",                                       category: "fun" },
+  { src: "/gallery/kayaking.jpg",             caption: "Kayaking",                                     category: "fun" },
+  { src: "/gallery/neu.jpg",                  caption: "Northeastern University",                      category: "fun" },
+  { src: "/gallery/sidd3.jpg",                caption: "Around Boston",                                category: "fun" },
+  { src: "/gallery/revolute.jpg",             caption: "Revolute — Boston physical AI hackathon",      category: "fun" },
+  { src: "/gallery/massrob1.jpg",             caption: "MassRobotics Women in Robotics meetup",        category: "fun" },
+  { src: "/gallery/massrob2.png",             caption: "MassRobotics Women in Robotics meetup",        category: "fun" },
+  { src: "/gallery/massrob3.png",             caption: "MassRobotics Women in Robotics meetup",        category: "fun" },
+  { src: "/gallery/gwise1.jpeg",              caption: "GWiSE at Northeastern",                        category: "fun" },
+  { src: "/gallery/gwise2.jpg",               caption: "GWiSE at Northeastern",                        category: "fun" },
+  { src: "/gallery/gli1.jpg",                 caption: "Graduate Leadership Institute, lead360",       category: "fun" },
+  { src: "/gallery/gli2.jpg",                 caption: "Graduate Leadership Institute, lead360",       category: "fun" },
+  { src: "/gallery/gli3.jpeg",                caption: "Graduate Leadership Institute, lead360",       category: "fun" },
+  { src: "/gallery/sih.jpg",                  caption: "Smart India Hackathon team",                   category: "fun" },
+  { src: "/gallery/STM1.jpg",                 caption: "ST MEMS workshop, Burlington",                 category: "fun" },
 ];
